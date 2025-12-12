@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import Navigation from './components/Navigation';
 import Hero from './components/Hero';
 import About from './components/About';
-import CloudIconsParade from './components/CloudIconsParade';
 import Skills from './components/Skills';
 import Projects from './components/Projects';
 import LatestArticles from './components/LatestArticles';
@@ -113,7 +112,6 @@ export default function App() {
       <Navigation activeSection={activeSection} />
       <Hero />
       <About />
-      <CloudIconsParade />
       <Skills />
       <Projects />
       <LatestArticles />

@@ -1,9 +1,13 @@
 import React from 'react';
+import CloudIconsParade from './CloudIconsParade';
 
 export default function About() {
   return (
-    <section id="about" className="py-20 px-4 bg-white border-t-4 border-black">
-      <div className="max-w-6xl mx-auto">
+    <section id="about" className="relative py-20 px-4 bg-white border-t-4 border-black overflow-hidden">
+      {/* Floating Icons */}
+      <CloudIconsParade />
+      
+      <div className="max-w-6xl mx-auto relative z-10">
         <div className="text-center mb-12">
           <div className="text-xs uppercase tracking-widest font-bold mb-2">Feature Story</div>
           <h2 className="text-5xl md:text-6xl font-black uppercase tracking-tight">About the Engineer</h2>

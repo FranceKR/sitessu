@@ -13,72 +13,110 @@ import {
 } from 'lucide-react';
 
 export default function CloudIconsParade() {
-  // Using Lucide React icons that are already installed in your project!
-  // No external dependencies needed
   const icons = [
-    { name: 'AWS', Icon: Cloud },
-    { name: 'GCP', Icon: Globe },
-    { name: 'Azure', Icon: Cloud },
-    { name: 'Docker', Icon: Container },
-    { name: 'Kubernetes', Icon: Boxes },
-    { name: 'Terraform', Icon: Workflow },
-    { name: 'Database', Icon: Database },
-    { name: 'Spark', Icon: Server },
-    { name: 'Snowflake', Icon: HardDrive },
-    { name: 'Apache', Icon: Cpu },
-    { name: 'Network', Icon: Network },
+    { name: 'AWS', Icon: Cloud, delay: 0 },
+    { name: 'GCP', Icon: Globe, delay: 0.5 },
+    { name: 'Azure', Icon: Cloud, delay: 1 },
+    { name: 'Docker', Icon: Container, delay: 1.5 },
+    { name: 'Kubernetes', Icon: Boxes, delay: 2 },
+    { name: 'Terraform', Icon: Workflow, delay: 2.5 },
+    { name: 'Database', Icon: Database, delay: 0.3 },
+    { name: 'Spark', Icon: Server, delay: 0.8 },
+    { name: 'Snowflake', Icon: HardDrive, delay: 1.3 },
+    { name: 'Apache', Icon: Cpu, delay: 1.8 },
+    { name: 'Network', Icon: Network, delay: 2.3 },
   ];
 
+  // Position icons in an arc pattern (top arc)
+  const getArcPosition = (index, total) => {
+    // Spread icons across the top in an arc from left to right
+    const progress = index / (total - 1); // 0 to 1
+    const x = 10 + progress * 80; // 10% to 90% horizontally
+    
+    // Create arc curve - peaks in the middle, lower at edges
+    const curve = Math.sin(progress * Math.PI); // 0 to 1 to 0
+    const y = 15 + curve * 15; // 15% to 30% (arc shape)
+    
+    return { x: `${x}%`, y: `${y}%` };
+  };
+
   return (
-    <div className="overflow-hidden bg-gray-100 border-y-4 border-black py-8">
-      <div className="flex animate-scroll gap-16">
-        {/* Triple the icons for seamless infinite loop */}
-        {[...icons, ...icons, ...icons].map((item, i) => (
-          <div 
-            key={i} 
-            className="flex-shrink-0 flex flex-col items-center gap-3"
-          >
-            <div className="w-16 h-16 border-4 border-black bg-white flex items-center justify-center">
-              <item.Icon className="w-10 h-10" strokeWidth={2.5} />
+    <>
+      {/* Desktop: Arc Pattern */}
+      <div className="hidden md:block absolute inset-0 pointer-events-none overflow-hidden">
+        {icons.map((item, i) => {
+          const pos = getArcPosition(i, icons.length);
+          return (
+            <div 
+              key={i} 
+              className="absolute flex flex-col items-center gap-2 animate-float pointer-events-auto"
+              style={{
+                left: pos.x,
+                top: pos.y,
+                transform: 'translate(-50%, -50%)',
+                animationDelay: `${item.delay}s`,
+                animationDuration: `${3 + (i % 3)}s`
+              }}
+            >
+              <div className="w-16 h-16 border-4 border-black bg-white flex items-center justify-center shadow-lg hover:shadow-2xl hover:scale-110 transition-all duration-300">
+                <item.Icon className="w-10 h-10" strokeWidth={2.5} />
+              </div>
+              <span className="text-xs font-black uppercase tracking-wider whitespace-nowrap">
+                {item.name}
+              </span>
             </div>
-            <span className="text-xs font-black uppercase tracking-wider whitespace-nowrap">
-              {item.name}
-            </span>
-          </div>
-        ))}
+          );
+        })}
+      </div>
+
+      {/* Mobile: Scrolling Parade */}
+      <div className="md:hidden absolute top-0 left-0 right-0 overflow-hidden py-8 pointer-events-none">
+        <div className="flex animate-scroll gap-12">
+          {/* Triple the icons for seamless infinite loop */}
+          {[...icons, ...icons, ...icons].map((item, i) => (
+            <div 
+              key={i} 
+              className="flex-shrink-0 flex flex-col items-center gap-2"
+            >
+              <div className="w-12 h-12 border-4 border-black bg-white flex items-center justify-center shadow-lg">
+                <item.Icon className="w-8 h-8" strokeWidth={2.5} />
+              </div>
+              <span className="text-[10px] font-black uppercase tracking-wider whitespace-nowrap">
+                {item.name}
+              </span>
+            </div>
+          ))}
+        </div>
       </div>
       
       <style>{`
+        @keyframes float {
+          0%, 100% { 
+            transform: translate(-50%, -50%) translateY(0px) rotate(0deg);
+          }
+          25% { 
+            transform: translate(-50%, -50%) translateY(-15px) rotate(1deg);
+          }
+          50% { 
+            transform: translate(-50%, -50%) translateY(-10px) rotate(-1deg);
+          }
+          75% { 
+            transform: translate(-50%, -50%) translateY(-20px) rotate(0.5deg);
+          }
+        }
+        .animate-float {
+          animation: float 3s ease-in-out infinite;
+        }
+        
         @keyframes scroll {
           0% { transform: translateX(0); }
           100% { transform: translateX(-33.333%); }
         }
         .animate-scroll {
-          animation: scroll 40s linear infinite;
+          animation: scroll 25s linear infinite;
           width: fit-content;
         }
       `}</style>
-    </div>
+    </>
   );
 }
-
-/* 
-  HOW TO ADD MORE ICONS:
-  
-  1. Import more icons from 'lucide-react' at the top
-  2. Add them to the icons array:
-  
-  { name: 'YourTech', Icon: YourLucideIcon }
-  
-  Available Lucide icons: https://lucide.dev/icons/
-  Already installed in your project - no external dependencies!
-  
-  Examples:
-  - Cloud, CloudCog, CloudDownload, CloudUpload
-  - Database, DatabaseBackup, DatabaseZap
-  - Server, Servers
-  - Container, Boxes
-  - Code, CodeSquare, Brackets
-  - Cpu, Microchip, CircuitBoard
-  - Network, Share2, Workflow
-*/
