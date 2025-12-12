@@ -10,7 +10,7 @@ export default function About() {
       <div className="max-w-6xl mx-auto relative z-10">
         <div className="text-center mb-12">
           <div className="text-xs uppercase tracking-widest font-bold mb-2">Feature Story</div>
-          <h2 className="text-5xl md:text-6xl font-black uppercase tracking-tight">About the Engineer</h2>
+          <h2 className="text-5xl md:text-6xl font-black uppercase tracking-tight">about prans</h2>
           <div className="w-32 h-1 bg-black mx-auto mt-4"></div>
         </div>
         

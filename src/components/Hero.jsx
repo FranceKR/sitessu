@@ -127,10 +127,16 @@ export default function Hero() {
               Let's create something extraordinary together.
             </p>
             <div className="flex gap-3">
-              {[Github, Linkedin, Twitter, Mail].map((Icon, i) => (
+              {[
+                {Icon: Github, label:'GitHub', url:'https://github.com/FranceKR'},
+                {Icon: Linkedin, label:'LinkedIn', url: 'https://www.linkedin.com/in/fkromero/'}
+                ]
+                .map(({Icon, url },i) => (
                 <a 
                   key={i} 
-                  href="#contact" 
+                  href={url}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="border-2 border-white p-2 hover:bg-white hover:text-black transition-colors"
                 >
                   <Icon className="w-4 h-4" />

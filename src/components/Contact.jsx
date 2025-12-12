@@ -38,7 +38,6 @@ export default function Contact() {
               <div className="p-6 space-y-4">
                 {[
                   { icon: Mail, label: 'Email', value: 'hello@francekhalil.com' },
-                  { icon: Phone, label: 'Phone', value: '+1 (555) 123-4567' },
                   { icon: MapPin, label: 'Location', value: 'Manila, Philippines' }
                 ].map((item, i) => (
                   <div key={i} className="flex items-start gap-3">
@@ -59,12 +58,14 @@ export default function Contact() {
               <div className="text-xs uppercase font-black mb-4">Follow</div>
               <div className="grid grid-cols-2 gap-3">
                 {[
-                  { icon: Github, label: 'GitHub' },
-                  { icon: Linkedin, label: 'LinkedIn' }
-                ].map((item, i) => (
+                  { icon: Github, label: 'GitHub', url:'https://github.com/FranceKR'},
+                  { icon: Linkedin, label: 'LinkedIn', url:'https://www.linkedin.com/in/fkromero/'}]
+                .map((item, i) => (
                   <a 
                     key={i}
-                    href="#contact" 
+                    href={item.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="border-2 border-black p-3 bg-white hover:bg-black hover:text-white transition-colors text-center"
                   >
                     <item.icon className="w-5 h-5 mx-auto mb-1" />
