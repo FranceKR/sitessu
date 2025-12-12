@@ -1,30 +1,18 @@
 import React from 'react';
-import { 
-  Database, 
-  Cloud, 
-  Server, 
-  Container, 
-  Boxes, 
-  Globe, 
-  HardDrive,
-  Cpu,
-  Network,
-  Workflow
-} from 'lucide-react';
 
 export default function CloudIconsParade() {
   const icons = [
-    { name: 'AWS', Icon: Cloud, delay: 0 },
-    { name: 'GCP', Icon: Globe, delay: 0.5 },
-    { name: 'Azure', Icon: Cloud, delay: 1 },
-    { name: 'Docker', Icon: Container, delay: 1.5 },
-    { name: 'Kubernetes', Icon: Boxes, delay: 2 },
-    { name: 'Terraform', Icon: Workflow, delay: 2.5 },
-    { name: 'Database', Icon: Database, delay: 0.3 },
-    { name: 'Spark', Icon: Server, delay: 0.8 },
-    { name: 'Snowflake', Icon: HardDrive, delay: 1.3 },
-    { name: 'Apache', Icon: Cpu, delay: 1.8 },
-    { name: 'Network', Icon: Network, delay: 2.3 },
+    { name: 'AWS', path: '/aws-svgrepo-com.svg', delay: 0 },
+    { name: 'GCP', path: '/google-cloud-svgrepo-com.svg', delay: 0.5 },
+    { name: 'Python', path: '/python-svgrepo-com.svg', delay: 1 },
+    { name: 'Docker', path: '/docker-svgrepo-com.svg', delay: 1.5 },
+    { name: 'Spark', path: '/spark-svgrepo-com.svg', delay: 2 },
+    { name: 'Airflow', path: '/apacheairflow-svgrepo-com.svg', delay: 2.5 },
+    { name: 'Databricks', path: '/databricks-svgrepo-com.svg', delay: 0.3 },
+    { name: 'AWS', path: '/aws-svgrepo-com.svg', delay: 0.8 },
+    { name: 'GCP', path: '/google-cloud-svgrepo-com.svg', delay: 1.3 },
+    { name: 'Python', path: '/python-svgrepo-com.svg', delay: 1.8 },
+    { name: 'Docker', path: '/docker-svgrepo-com.svg', delay: 2.3 },
   ];
 
   // Position icons in an arc pattern (top arc)
@@ -58,8 +46,12 @@ export default function CloudIconsParade() {
                 animationDuration: `${3 + (i % 3)}s`
               }}
             >
-              <div className="w-16 h-16 border-4 border-black bg-white flex items-center justify-center shadow-lg hover:shadow-2xl hover:scale-110 transition-all duration-300">
-                <item.Icon className="w-10 h-10" strokeWidth={2.5} />
+              <div className="w-16 h-16 border-4 border-black bg-white flex items-center justify-center shadow-lg hover:shadow-2xl hover:scale-110 transition-all duration-300 p-2">
+                <img 
+                  src={item.path} 
+                  alt={item.name}
+                  className="w-full h-full object-contain"
+                />
               </div>
               <span className="text-xs font-black uppercase tracking-wider whitespace-nowrap">
                 {item.name}
@@ -78,8 +70,12 @@ export default function CloudIconsParade() {
               key={i} 
               className="flex-shrink-0 flex flex-col items-center gap-2"
             >
-              <div className="w-12 h-12 border-4 border-black bg-white flex items-center justify-center shadow-lg">
-                <item.Icon className="w-8 h-8" strokeWidth={2.5} />
+              <div className="w-12 h-12 border-4 border-black bg-white flex items-center justify-center shadow-lg p-1">
+                <img 
+                  src={item.path} 
+                  alt={item.name}
+                  className="w-full h-full object-contain"
+                />
               </div>
               <span className="text-[10px] font-black uppercase tracking-wider whitespace-nowrap">
                 {item.name}

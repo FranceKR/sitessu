@@ -11,7 +11,8 @@ export default function Navigation({ activeSection }) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navItems = ['Home', 'About', 'Skills', 'Projects', 'Articles', 'Contact'];
+  // Updated order: Home, Articles, About, Skills, Projects, Contact
+  const navItems = ['Home', 'Articles', 'About', 'Skills', 'Projects', 'Contact'];
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b-2 border-black ${

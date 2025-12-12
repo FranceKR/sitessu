@@ -72,7 +72,7 @@ export default function Hero() {
         </div>
 
         {/* Main Headline */}
-        <div className="border-4 border-black p-8 mb-8 bg-yellow-50">
+        {/* <div className="border-4 border-black p-8 mb-8 bg-yellow-50">
           <div className="text-xs uppercase tracking-widest font-bold mb-4">
             Breaking News
           </div>
@@ -87,7 +87,7 @@ export default function Hero() {
               at the intersection of engineering and design.
             </p>
           </div>
-        </div>
+        </div> */}
 
         {/* Columns */}
         <div className="grid md:grid-cols-3 gap-8 mb-8">

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Navigation from './components/Navigation';
 import Hero from './components/Hero';
+import LatestArticles from './components/LatestArticles';
 import About from './components/About';
 import Skills from './components/Skills';
 import Projects from './components/Projects';
-import LatestArticles from './components/LatestArticles';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import ArticlePage from './pages/ArticlePage';
@@ -57,7 +57,7 @@ export default function App() {
     if (currentView !== 'home') return;
 
     const handleScroll = () => {
-      const sections = ['home', 'about', 'skills', 'projects', 'articles', 'contact'];
+      const sections = ['home', 'articles', 'about', 'skills', 'projects', 'contact'];
       const current = sections.find(section => {
         const element = document.getElementById(section);
         if (element) {
@@ -106,15 +106,15 @@ export default function App() {
     );
   }
 
-  // Render homepage
+  // Render homepage - REORDERED: Hero -> LatestArticles -> About -> Skills -> Projects -> Contact
   return (
     <div className="bg-gray-50">
       <Navigation activeSection={activeSection} />
       <Hero />
+      <LatestArticles />
       <About />
       <Skills />
       <Projects />
-      <LatestArticles />
       <Contact />
       <Footer />
     </div>

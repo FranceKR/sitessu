@@ -38,54 +38,9 @@ export default function Projects() {
           <div className="w-32 h-1 bg-black mx-auto mt-4"></div>
         </div>
         
-        <div className="space-y-8">
-          {projects.map((project, i) => (
-            <article key={i} className="border-4 border-black bg-gray-50 hover:shadow-2xl transition-shadow">
-              <div className="grid md:grid-cols-3">
-                {/* Left - Category & Impact */}
-                <div className="border-r-0 md:border-r-4 border-black p-8 bg-black text-white">
-                  <div className="text-xs uppercase tracking-widest mb-4">Project #{i + 1}</div>
-                  <div className="text-xs uppercase tracking-wide mb-2 text-gray-400">{project.category}</div>
-                  <div className="mb-8">
-                    <div className="text-4xl font-black mb-2">{project.impact}</div>
-                  </div>
-                  <div className="space-y-2">
-                    {project.tech.map((tech, j) => (
-                      <div key={j} className="text-xs font-bold uppercase border-l-4 border-white pl-2">
-                        {tech}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                
-                {/* Right - Content */}
-                <div className="md:col-span-2 p-8">
-                  <div className="mb-4">
-                    <h3 className="text-4xl font-black uppercase leading-tight mb-2">
-                      {project.title}
-                    </h3>
-                    <div className="text-sm uppercase tracking-wide text-gray-600 font-bold">
-                      {project.subtitle}
-                    </div>
-                  </div>
-                  
-                  <div className="border-t-2 border-black pt-4 mb-6">
-                    <p className="font-serif text-lg leading-relaxed">
-                      {project.description}
-                    </p>
-                  </div>
-                  
-                  <button className="inline-flex items-center gap-2 text-sm uppercase font-black border-2 border-black px-6 py-3 hover:bg-black hover:text-white transition-colors">
-                    View Case Study <ExternalLink className="w-4 h-4" />
-                  </button>
-                </div>
-              </div>
-            </article>
-          ))}
-        </div>
 
         {/* Call to Action */}
-        <div className="mt-12 border-4 border-black p-8 bg-yellow-50 text-center">
+        <div className="mt-12 border-4 border-black p-8 bg-white-50 text-center">
           <h3 className="text-3xl font-black uppercase mb-4">Interested in Collaboration?</h3>
           <p className="font-serif text-lg mb-6">Let's discuss your next groundbreaking project</p>
           <a 
@@ -99,3 +54,14 @@ export default function Projects() {
     </section>
   );
 }
+
+<div className="mt-12 border-4 border-black p-8 bg-yellow-50 text-center">
+  <h3 className="text-3xl font-black uppercase mb-4">Interested in Collaboration?</h3>
+  <p className="font-serif text-lg mb-6">Let's discuss your next groundbreaking project</p>
+  <a 
+    href="#contact" 
+    className="inline-block text-sm uppercase font-black border-4 border-black px-8 py-4 bg-white hover:bg-black hover:text-white transition-colors"
+  >
+    Get In Touch →
+  </a>
+</div>

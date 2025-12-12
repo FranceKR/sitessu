@@ -7,19 +7,19 @@ export default function Skills() {
       icon: Database,
       title: 'Data Engineering',
       category: 'Technical',
-      skills: ['Python', 'SQL', 'Apache Spark', 'Airflow', 'ETL Pipelines', 'AWS/GCP', 'Snowflake', 'dbt']
+     // skills: ['Python', 'SQL', 'Apache Spark', 'Airflow', 'ETL Pipelines', 'AWS/GCP', 'Snowflake', 'dbt']
     },
     {
       icon: Code,
       title: 'Development',
       category: 'Engineering',
-      skills: ['React', 'TypeScript', 'Node.js', 'FastAPI', 'PostgreSQL', 'Docker', 'Git', 'CI/CD']
+     // skills: ['React', 'TypeScript', 'Node.js', 'FastAPI', 'PostgreSQL', 'Docker', 'Git', 'CI/CD']
     },
     {
       icon: Palette,
       title: 'Design',
       category: 'Creative',
-      skills: ['UI/UX Design', 'Figma', 'Typography', 'Color Theory', 'Responsive Design', 'Prototyping', 'Design Systems', 'Accessibility']
+    //  skills: ['UI/UX Design', 'Figma', 'Typography', 'Color Theory', 'Responsive Design', 'Prototyping', 'Design Systems', 'Accessibility']
     }
   ];
 
@@ -27,7 +27,7 @@ export default function Skills() {
     <section id="skills" className="py-20 px-4 bg-gray-50 border-t-4 border-black">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
-          <div className="text-xs uppercase tracking-widest font-bold mb-2">Special Report</div>
+          <div className="text-xs uppercase tracking-widest font-bold mb-2">Specialty</div>
           <h2 className="text-5xl md:text-6xl font-black uppercase tracking-tight">Skills & Expertise</h2>
           <div className="w-32 h-1 bg-black mx-auto mt-4"></div>
         </div>
@@ -47,7 +47,7 @@ export default function Skills() {
               </div>
               
               {/* Skills List */}
-              <div className="p-6">
+              {/* <div className="p-6">
                 <div className="space-y-2">
                   {category.skills.map((skill, j) => (
                     <div key={j} className="border-l-4 border-black pl-3 py-1">
@@ -55,28 +55,13 @@ export default function Skills() {
                     </div>
                   ))}
                 </div>
-              </div>
+              </div> */}
             </article>
           ))}
         </div>
 
         {/* Additional Info Box */}
-        <div className="mt-12 border-4 border-black p-8 bg-white">
-          <div className="grid md:grid-cols-3 gap-8 text-center">
-            <div>
-              <div className="text-4xl font-black mb-2">10M+</div>
-              <div className="text-sm uppercase tracking-wide font-bold">Daily Events Processed</div>
-            </div>
-            <div>
-              <div className="text-4xl font-black mb-2">80%</div>
-              <div className="text-sm uppercase tracking-wide font-bold">Incident Reduction</div>
-            </div>
-            <div>
-              <div className="text-4xl font-black mb-2">24/7</div>
-              <div className="text-sm uppercase tracking-wide font-bold">System Reliability</div>
-            </div>
-          </div>
-        </div>
+    
       </div>
     </section>
   );
