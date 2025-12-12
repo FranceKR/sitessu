@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function ArticleCard({ article, onClick }) {
+export default function ArticleCard({ article }) {
   const { slug, title, excerpt, thumbnail, publishedAt, readTime, category } = article;
   
   const formattedDate = new Date(publishedAt).toLocaleDateString('en-US', {
@@ -10,11 +10,12 @@ export default function ArticleCard({ article, onClick }) {
   });
 
   const handleClick = () => {
-    if (onClick) {
-      onClick(slug);
-    } else {
-      window.location.href = `/article/${slug}`;
-    }
+    // Update URL and trigger popstate event for routing
+    window.history.pushState({}, '', `/article/${slug}`);
+    window.dispatchEvent(new PopStateEvent('popstate'));
+    
+    // Scroll to top
+    window.scrollTo(0, 0);
   };
 
   return (

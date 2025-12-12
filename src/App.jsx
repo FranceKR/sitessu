@@ -8,6 +8,7 @@ import LatestArticles from './components/LatestArticles';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import ArticlePage from './pages/ArticlePage';
+import AllArticlesPage from './pages/AllArticlesPage';
 import AdminPanel from './pages/AdminPanel';
 
 export default function App() {
