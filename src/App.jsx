@@ -4,14 +4,53 @@ import Hero from './components/Hero';
 import About from './components/About';
 import Skills from './components/Skills';
 import Projects from './components/Projects';
-import Articles from './components/Articles';
+import LatestArticles from './components/LatestArticles';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import ArticlePage from './pages/ArticlePage';
+import AdminPanel from './pages/AdminPanel';
 
 export default function App() {
   const [activeSection, setActiveSection] = useState('home');
+  const [currentView, setCurrentView] = useState('home'); // 'home', 'article', or 'admin'
+  const [currentSlug, setCurrentSlug] = useState(null);
 
+  // Handle routing based on URL
   useEffect(() => {
+    const path = window.location.pathname;
+    
+    if (path.startsWith('/article/')) {
+      const slug = path.replace('/article/', '');
+      setCurrentView('article');
+      setCurrentSlug(slug);
+    } else if (path === '/admin') {
+      setCurrentView('admin');
+    } else {
+      setCurrentView('home');
+    }
+
+    // Handle browser back/forward
+    const handlePopState = () => {
+      const newPath = window.location.pathname;
+      if (newPath.startsWith('/article/')) {
+        const slug = newPath.replace('/article/', '');
+        setCurrentView('article');
+        setCurrentSlug(slug);
+      } else if (newPath === '/admin') {
+        setCurrentView('admin');
+      } else {
+        setCurrentView('home');
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+  // Scroll tracking for navigation
+  useEffect(() => {
+    if (currentView !== 'home') return;
+
     const handleScroll = () => {
       const sections = ['home', 'about', 'skills', 'projects', 'articles', 'contact'];
       const current = sections.find(section => {
@@ -27,8 +66,31 @@ export default function App() {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [currentView]);
 
+  // Render admin panel
+  if (currentView === 'admin') {
+    return (
+      <div className="bg-gray-50">
+        <Navigation activeSection="admin" />
+        <AdminPanel />
+        <Footer />
+      </div>
+    );
+  }
+
+  // Render article page
+  if (currentView === 'article') {
+    return (
+      <div className="bg-gray-50">
+        <Navigation activeSection="articles" />
+        <ArticlePage slug={currentSlug} />
+        <Footer />
+      </div>
+    );
+  }
+
+  // Render homepage
   return (
     <div className="bg-gray-50">
       <Navigation activeSection={activeSection} />
@@ -36,7 +98,7 @@ export default function App() {
       <About />
       <Skills />
       <Projects />
-      <Articles />
+      <LatestArticles />
       <Contact />
       <Footer />
     </div>
