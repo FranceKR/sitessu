@@ -13,15 +13,14 @@ export default function About() {
         <div className="grid md:grid-cols-2 gap-12 items-start">
           {/* Left Column - Image/Visual */}
           <div className="border-4 border-black p-8 bg-gray-100">
-            <div className="aspect-square flex items-center justify-center border-2 border-black bg-white mb-4">
-              <div className="text-center p-8">
-                <div className="text-8xl mb-4">👨‍💻</div>
-                <div className="font-black text-2xl uppercase">France Khalil</div>
-                <div className="text-sm uppercase tracking-wide text-gray-600 mt-2">
-                  Data Engineer & Designer
-                </div>
-              </div>
+            <div className="aspect-square border-2 border-black bg-white mb-4 overflow-hidden">
+              <img 
+                src="/prans.jpg" 
+                alt="France Khalil"
+                className="w-full h-full object-cover"
+              />
             </div>
+            
             <div className="border-2 border-black p-4 bg-yellow-50">
               <div className="text-xs uppercase font-bold mb-2">Quick Facts</div>
               <ul className="space-y-1 text-sm font-serif">

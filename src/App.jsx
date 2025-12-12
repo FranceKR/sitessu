@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Navigation from './components/Navigation';
 import Hero from './components/Hero';
 import About from './components/About';
+import CloudIconsParade from './components/CloudIconsParade';
 import Skills from './components/Skills';
 import Projects from './components/Projects';
 import LatestArticles from './components/LatestArticles';
@@ -13,7 +14,7 @@ import AdminPanel from './pages/AdminPanel';
 
 export default function App() {
   const [activeSection, setActiveSection] = useState('home');
-  const [currentView, setCurrentView] = useState('home'); // 'home', 'article', or 'admin'
+  const [currentView, setCurrentView] = useState('home'); // 'home', 'article', 'articles', or 'admin'
   const [currentSlug, setCurrentSlug] = useState(null);
 
   // Handle routing based on URL
@@ -24,6 +25,8 @@ export default function App() {
       const slug = path.replace('/article/', '');
       setCurrentView('article');
       setCurrentSlug(slug);
+    } else if (path === '/articles') {
+      setCurrentView('articles');
     } else if (path === '/admin') {
       setCurrentView('admin');
     } else {
@@ -37,6 +40,8 @@ export default function App() {
         const slug = newPath.replace('/article/', '');
         setCurrentView('article');
         setCurrentSlug(slug);
+      } else if (newPath === '/articles') {
+        setCurrentView('articles');
       } else if (newPath === '/admin') {
         setCurrentView('admin');
       } else {
@@ -80,7 +85,18 @@ export default function App() {
     );
   }
 
-  // Render article page
+  // Render all articles page
+  if (currentView === 'articles') {
+    return (
+      <div className="bg-gray-50">
+        <Navigation activeSection="articles" />
+        <AllArticlesPage />
+        <Footer />
+      </div>
+    );
+  }
+
+  // Render single article page
   if (currentView === 'article') {
     return (
       <div className="bg-gray-50">
@@ -97,6 +113,7 @@ export default function App() {
       <Navigation activeSection={activeSection} />
       <Hero />
       <About />
+      <CloudIconsParade />
       <Skills />
       <Projects />
       <LatestArticles />

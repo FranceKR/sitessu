@@ -39,7 +39,7 @@ export default function Contact() {
                 {[
                   { icon: Mail, label: 'Email', value: 'hello@francekhalil.com' },
                   { icon: Phone, label: 'Phone', value: '+1 (555) 123-4567' },
-                  { icon: MapPin, label: 'Location', value: 'San Francisco, CA' }
+                  { icon: MapPin, label: 'Location', value: 'Manila, Philippines' }
                 ].map((item, i) => (
                   <div key={i} className="flex items-start gap-3">
                     <div className="border-2 border-black p-2 bg-white">

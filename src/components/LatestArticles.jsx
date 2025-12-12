@@ -23,6 +23,13 @@ export default function LatestArticles() {
     loadArticles();
   }, []);
 
+  const handleViewAll = () => {
+    // Navigate to all articles page using the routing system
+    window.history.pushState({}, '', '/articles');
+    window.dispatchEvent(new PopStateEvent('popstate'));
+    window.scrollTo(0, 0);
+  };
+
   if (loading) {
     return (
       <section className="py-20 px-4 bg-gray-50 border-t-4 border-black">
@@ -63,14 +70,14 @@ export default function LatestArticles() {
           ))}
         </div>
         
-        {/* View All Button */}
+        {/* View All Button - Now properly working */}
         <div className="text-center">
-          <a
-            href="/articles"
-            className="inline-block text-sm uppercase font-black border-4 border-black px-8 py-4 bg-white hover:bg-black hover:text-white transition-colors"
+          <button
+            onClick={handleViewAll}
+            className="inline-block text-sm uppercase font-black border-4 border-black px-8 py-4 bg-white hover:bg-black hover:text-white transition-colors cursor-pointer"
           >
             View All Articles →
-          </a>
+          </button>
         </div>
       </div>
     </section>
