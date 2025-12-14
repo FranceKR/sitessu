@@ -77,7 +77,7 @@ export default function ArticlePage({ slug }) {
               <span>{formattedDate}</span>
               <span>{article.readTime} read</span>
             </div>
-            <h1 className="text-5xl md:text-6xl font-black uppercase leading-tight">
+            <h1 className="text-3xl md:text-6xl font-black uppercase leading-tight">
               {article.title}
             </h1>
           </div>
@@ -89,7 +89,7 @@ export default function ArticlePage({ slug }) {
             </div>
             <div>
               <div className="font-black uppercase text-sm">{article.author || 'France Khalil'}</div>
-              <div className="text-xs text-gray-400">Data Engineer & Designer</div>
+              <div className="text-xs text-gray-400">Data Engineer</div>
             </div>
           </div>
         </header>

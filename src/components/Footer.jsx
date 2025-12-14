@@ -63,14 +63,16 @@ export default function Footer() {
           {/* Social Links */}
           <div className="flex gap-4">
             {[
-              { icon: Github, label: 'GitHub', url: '#contact' },
-              { icon: Linkedin, label: 'LinkedIn', url: '#contact' },
-              { icon: Twitter, label: 'Twitter', url: '#contact' },
-              { icon: Mail, label: 'Email', url: '#contact' }
+              { icon: Github, label: 'GitHub', url: 'https://github.com/FranceKR' },
+              { icon: Linkedin, label: 'LinkedIn', url: 'https://www.linkedin.com/in/fkromero/' },
+             // { icon: Twitter, label: 'Twitter', url: '#contact' },
+             // { icon: Mail, label: 'Email', url: '#contact' }
             ].map((item, i) => (
               <a 
                 key={i}
-                href={item.url} 
+                href={item.url}
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label={item.label}
                 className="border-2 border-white p-3 hover:bg-white hover:text-black transition-colors"
               >
