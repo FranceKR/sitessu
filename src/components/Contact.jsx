@@ -1,15 +1,7 @@
-import React, { useState } from 'react';
-import { Mail, Linkedin, Github, MapPin, Phone } from 'lucide-react';
+import React from 'react';
+import { Mail, Linkedin, Github, MapPin } from 'lucide-react';
 
 export default function Contact() {
-  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    alert('Thank you for your message! I will get back to you soon.');
-    setFormData({ name: '', email: '', subject: '', message: '' });
-  };
-
   return (
     <section id="contact" className="py-20 px-4 bg-white border-t-4 border-black">
       <div className="max-w-6xl mx-auto">
@@ -19,9 +11,9 @@ export default function Contact() {
           <div className="w-32 h-1 bg-black mx-auto mt-4"></div>
         </div>
         
-        <div className="grid md:grid-cols-3 gap-8">
-          {/* Contact Info - Left Column */}
-          <div className="md:col-span-1 space-y-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {/* Contact Info Cards */}
+          <div className="space-y-6">
             {/* Main Contact Box */}
             <div className="border-4 border-black bg-black text-white p-6">
               <h3 className="text-2xl font-black uppercase mb-4">Contact Information</h3>
@@ -76,88 +68,81 @@ export default function Contact() {
             </div>
           </div>
           
-          {/* Contact Form - Right Column */}
-          <div className="md:col-span-2">
-            <form onSubmit={handleSubmit} className="border-4 border-black bg-gray-50">
-              <div className="border-b-4 border-black p-6 bg-white">
-                <h3 className="text-3xl font-black uppercase">Send a Message</h3>
-                <p className="font-serif text-sm mt-2">Fill out the form below and I'll respond within 24 hours</p>
+          {/* Additional Contact Card */}
+          <div className="border-4 border-black bg-white">
+            <div className="border-b-4 border-black p-6 bg-gray-900 text-white">
+              <h3 className="text-2xl font-black uppercase">Let's Connect</h3>
+            </div>
+            <div className="p-8">
+              <p className="font-serif text-lg leading-relaxed mb-6">
+                Interested in collaboration, consulting, or just want to chat about data engineering and design? 
+                I'm always open to connecting with fellow professionals and innovators.
+              </p>
+              <div className="border-l-4 border-black pl-4 bg-gray-50 p-4">
+                <p className="text-sm font-bold uppercase mb-2">Response Time</p>
+                <p className="font-serif text-sm">Usually within 24 hours for email inquiries</p>
               </div>
-              
-              <div className="p-8 space-y-6">
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-xs uppercase font-black tracking-wider mb-3">
-                      Your Name *
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      value={formData.name}
-                      onChange={(e) => setFormData({...formData, name: e.target.value})}
-                      className="w-full px-4 py-3 border-4 border-black focus:outline-none focus:ring-4 focus:ring-yellow-300 font-bold"
-                      placeholder="John Doe"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs uppercase font-black tracking-wider mb-3">
-                      Email Address *
-                    </label>
-                    <input
-                      type="email"
-                      required
-                      value={formData.email}
-                      onChange={(e) => setFormData({...formData, email: e.target.value})}
-                      className="w-full px-4 py-3 border-4 border-black focus:outline-none focus:ring-4 focus:ring-yellow-300 font-bold"
-                      placeholder="john@example.com"
-                    />
-                  </div>
-                </div>
+            </div>
+          </div>
 
-                <div>
-                  <label className="block text-xs uppercase font-black tracking-wider mb-3">
-                    Subject *
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={formData.subject}
-                    onChange={(e) => setFormData({...formData, subject: e.target.value})}
-                    className="w-full px-4 py-3 border-4 border-black focus:outline-none focus:ring-4 focus:ring-yellow-300 font-bold"
-                    placeholder="Project Inquiry"
-                  />
+          {/* Availability Card */}
+          <div className="border-4 border-black bg-gradient-to-br from-yellow-50 to-white">
+            <div className="border-b-4 border-black p-6 bg-black text-white">
+              <h3 className="text-2xl font-black uppercase">Availability</h3>
+            </div>
+            <div className="p-8">
+              <div className="space-y-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-3 h-3 rounded-full bg-green-500 border-2 border-black"></div>
+                  <span className="font-bold">Available for Projects</span>
                 </div>
-                
-                <div>
-                  <label className="block text-xs uppercase font-black tracking-wider mb-3">
-                    Message *
-                  </label>
-                  <textarea
-                    required
-                    value={formData.message}
-                    onChange={(e) => setFormData({...formData, message: e.target.value})}
-                    rows="6"
-                    className="w-full px-4 py-3 border-4 border-black focus:outline-none focus:ring-4 focus:ring-yellow-300 font-serif"
-                    placeholder="Tell me about your project..."
-                  ></textarea>
+                <div className="border-t-2 border-black pt-4">
+                  <p className="font-serif text-sm leading-relaxed mb-4">
+                    Currently accepting:
+                  </p>
+                  <ul className="space-y-2 font-serif text-sm">
+                    <li className="flex items-start">
+                      <span className="mr-2">•</span>
+                      <span>Data Engineering Consulting</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="mr-2">•</span>
+                      <span>UI/UX Design Projects</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="mr-2">•</span>
+                      <span>Speaking Engagements</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="mr-2">•</span>
+                      <span>Technical Writing</span>
+                    </li>
+                  </ul>
                 </div>
-                
-                <button
-                  type="submit"
-                  className="w-full px-8 py-4 bg-black text-white font-black uppercase text-lg hover:bg-gray-900 transition-colors border-4 border-black"
-                >
-                  Submit Message →
-                </button>
               </div>
-            </form>
+            </div>
           </div>
         </div>
 
         {/* Additional Info Banner */}
-        <div className="mt-12 border-4 border-black p-8 bg-yellow-50 text-center">
-          <div className="text-xs uppercase font-black mb-2">Response Time</div>
-          <div className="text-2xl font-black uppercase mb-2">Usually within 24 hours</div>
-          <p className="font-serif text-sm">For urgent inquiries, please call directly</p>
+        <div className="mt-12 border-4 border-black p-8 bg-yellow-50">
+          <div className="grid md:grid-cols-3 gap-6 text-center">
+            <div>
+              <div className="text-xs uppercase font-black mb-2">Response Time</div>
+              <div className="text-2xl font-black uppercase">24 Hours</div>
+              <p className="font-serif text-sm mt-2">Email responses</p>
+            </div>
+            <div>
+              <div className="text-xs uppercase font-black mb-2">Time Zone</div>
+              <div className="text-2xl font-black uppercase">PHT (UTC+8)</div>
+              <p className="font-serif text-sm mt-2">Manila, Philippines</p>
+            </div>
+            <div>
+              <div className="text-xs uppercase font-black mb-2">Working Hours</div>
+              <div className="text-2xl font-black uppercase">Flexible</div>
+              <p className="font-serif text-sm mt-2">Remote collaboration</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>

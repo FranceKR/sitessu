@@ -1,8 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { markdownToHTML, truncateText } from '../utils/sanitize';
 import { saveArticle } from '../services/api';
 
+// SECURITY: Load password from environment variables
+const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD;
+const ADMIN_EMAIL = import.meta.env.VITE_ADMIN_EMAIL || 'admin@francekhalil.com';
+
 export default function AdminPanel() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [password, setPassword] = useState('');
+  const [loginError, setLoginError] = useState('');
+  
   const [formData, setFormData] = useState({
     title: '',
     excerpt: '',
@@ -17,6 +25,50 @@ export default function AdminPanel() {
   const [success, setSuccess] = useState(false);
   const [jsonOutput, setJsonOutput] = useState('');
 
+  // Check if already authenticated (session expires after 4 hours)
+  useEffect(() => {
+    const authStatus = sessionStorage.getItem('adminAuth');
+    const authTimestamp = sessionStorage.getItem('adminAuthTime');
+    
+    if (authStatus === 'true' && authTimestamp) {
+      const fourHours = 4 * 60 * 60 * 1000;
+      const isExpired = Date.now() - parseInt(authTimestamp) > fourHours;
+      
+      if (!isExpired) {
+        setIsAuthenticated(true);
+      } else {
+        sessionStorage.removeItem('adminAuth');
+        sessionStorage.removeItem('adminAuthTime');
+      }
+    }
+  }, []);
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    
+    if (!ADMIN_PASSWORD) {
+      setLoginError('Admin password not configured in environment variables.');
+      return;
+    }
+    
+    if (password === ADMIN_PASSWORD) {
+      setIsAuthenticated(true);
+      sessionStorage.setItem('adminAuth', 'true');
+      sessionStorage.setItem('adminAuthTime', Date.now().toString());
+      setLoginError('');
+    } else {
+      setLoginError('Invalid password. Access denied.');
+      setPassword('');
+    }
+  };
+
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    sessionStorage.removeItem('adminAuth');
+    sessionStorage.removeItem('adminAuthTime');
+    setPassword('');
+  };
+
   const handleSubmit = async () => {
     if (!formData.title || !formData.content) {
       alert('Title and content are required!');
@@ -24,16 +76,12 @@ export default function AdminPanel() {
     }
     
     try {
-      // Generate slug from title
       const slug = formData.title
         .toLowerCase()
         .replace(/[^a-z0-9]+/g, '-')
         .replace(/^-|-$/g, '');
       
-      // Convert markdown to HTML
       const htmlContent = markdownToHTML(formData.content);
-      
-      // Auto-generate excerpt if not provided
       const excerpt = formData.excerpt || 
         truncateText(formData.content.replace(/[#*`]/g, ''), 150);
       
@@ -50,12 +98,9 @@ export default function AdminPanel() {
       };
       
       const result = await saveArticle(article);
-      
-      // Show JSON output for manual copying
       setJsonOutput(JSON.stringify(result.article, null, 2));
       setSuccess(true);
       
-      // Reset form after 5 seconds
       setTimeout(() => {
         setFormData({
           title: '',
@@ -74,13 +119,99 @@ export default function AdminPanel() {
     }
   };
 
+  // LOGIN SCREEN
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-gray-50 pt-24 pb-20 px-4">
+        <div className="max-w-md mx-auto">
+          <div className="border-4 border-black bg-white">
+            <div className="border-b-4 border-black p-8 bg-black text-white">
+              <h1 className="text-4xl font-black uppercase mb-2">🔒 Admin Access</h1>
+              <p className="font-serif">Authentication Required</p>
+            </div>
+            
+            <form onSubmit={handleLogin} className="p-8">
+              <div className="mb-6">
+                <label className="block text-xs uppercase font-black mb-3">
+                  Password
+                </label>
+                <input
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full px-4 py-3 border-4 border-black focus:outline-none focus:ring-4 focus:ring-yellow-300 font-bold"
+                  placeholder="Enter admin password"
+                  autoFocus
+                  disabled={!ADMIN_PASSWORD}
+                />
+              </div>
+
+              {!ADMIN_PASSWORD && (
+                <div className="mb-6 border-4 border-black bg-yellow-50 p-4">
+                  <p className="text-sm font-bold">⚠️ Configuration Error</p>
+                  <p className="text-xs mt-2 font-serif">
+                    Admin password not set. Add VITE_ADMIN_PASSWORD to your .env file.
+                  </p>
+                </div>
+              )}
+
+              {loginError && (
+                <div className="mb-6 border-4 border-black bg-red-50 p-4">
+                  <p className="text-sm font-bold text-red-600">⚠️ {loginError}</p>
+                </div>
+              )}
+
+              <button
+                type="submit"
+                disabled={!ADMIN_PASSWORD}
+                className="w-full bg-black text-white font-black uppercase py-4 hover:bg-gray-800 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
+              >
+                {ADMIN_PASSWORD ? 'Login →' : 'Configuration Required'}
+              </button>
+
+              <div className="mt-6 text-center">
+                <a 
+                  href="/"
+                  className="text-sm font-bold uppercase hover:underline"
+                >
+                  ← Back to Homepage
+                </a>
+              </div>
+            </form>
+          </div>
+
+          <div className="mt-8 border-4 border-black bg-yellow-50 p-6 text-center">
+            <p className="text-xs uppercase font-black mb-2">⚠️ Security Notice</p>
+            <p className="font-serif text-sm">
+              This is a protected area. Unauthorized access is prohibited.
+            </p>
+            {ADMIN_EMAIL && (
+              <p className="font-serif text-xs mt-2 text-gray-600">
+                Contact: {ADMIN_EMAIL}
+              </p>
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // ADMIN PANEL (After authentication)
   return (
     <div className="min-h-screen bg-gray-50 pt-24 pb-20 px-4">
       <div className="max-w-6xl mx-auto">
-        {/* Header */}
-        <div className="border-4 border-black bg-black text-white p-8 mb-8">
-          <h1 className="text-5xl font-black uppercase mb-2">Admin Panel</h1>
-          <p className="font-serif">Create and manage your blog articles</p>
+        {/* Header with Logout */}
+        <div className="border-4 border-black bg-black text-white p-8 mb-8 flex justify-between items-center">
+          <div>
+            <h1 className="text-5xl font-black uppercase mb-2">Admin Panel</h1>
+            <p className="font-serif">Create and manage your blog articles</p>
+          </div>
+          <button
+            onClick={handleLogout}
+            className="border-2 border-white px-6 py-3 font-black uppercase text-sm hover:bg-white hover:text-black transition-colors"
+          >
+            Logout
+          </button>
         </div>
 
         {/* Success Message */}
@@ -176,7 +307,7 @@ export default function AdminPanel() {
                   onChange={(e) => setFormData({...formData, content: e.target.value})}
                   rows={12}
                   className="w-full px-4 py-3 border-4 border-black font-mono text-sm"
-                  placeholder="## Heading\n\nYour content here..."
+                  placeholder="## Heading&#10;&#10;Your content here..."
                 />
                 <p className="text-xs mt-1 font-serif">Supports Markdown formatting</p>
               </div>
