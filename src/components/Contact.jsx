@@ -15,12 +15,7 @@ export default function Contact() {
           {/* Contact Info Cards */}
           <div className="space-y-6">
             {/* Main Contact Box */}
-            <div className="border-4 border-black bg-black text-white p-6">
-              <h3 className="text-2xl font-black uppercase mb-4">Contact Information</h3>
-              <p className="font-serif text-sm mb-6">
-                Available for consulting, collaboration, and speaking engagements.
-              </p>
-            </div>
+
 
             {/* Contact Details */}
             <div className="border-4 border-black bg-gray-50">
@@ -68,22 +63,7 @@ export default function Contact() {
             </div>
           </div>
           
-          {/* Additional Contact Card */}
-          <div className="border-4 border-black bg-white">
-            <div className="border-b-4 border-black p-6 bg-gray-900 text-white">
-              <h3 className="text-2xl font-black uppercase">Let's Connect</h3>
-            </div>
-            <div className="p-8">
-              <p className="font-serif text-lg leading-relaxed mb-6">
-                Interested in collaboration, consulting, or just want to chat about data engineering and design? 
-                I'm always open to connecting with fellow professionals and innovators.
-              </p>
-              <div className="border-l-4 border-black pl-4 bg-gray-50 p-4">
-                <p className="text-sm font-bold uppercase mb-2">Response Time</p>
-                <p className="font-serif text-sm">Usually within 24 hours for email inquiries</p>
-              </div>
-            </div>
-          </div>
+
 
           {/* Availability Card */}
           <div className="border-4 border-black bg-gradient-to-br from-yellow-50 to-white">
@@ -125,25 +105,6 @@ export default function Contact() {
         </div>
 
         {/* Additional Info Banner */}
-        <div className="mt-12 border-4 border-black p-8 bg-yellow-50">
-          <div className="grid md:grid-cols-3 gap-6 text-center">
-            <div>
-              <div className="text-xs uppercase font-black mb-2">Response Time</div>
-              <div className="text-2xl font-black uppercase">24 Hours</div>
-              <p className="font-serif text-sm mt-2">Email responses</p>
-            </div>
-            <div>
-              <div className="text-xs uppercase font-black mb-2">Time Zone</div>
-              <div className="text-2xl font-black uppercase">PHT (UTC+8)</div>
-              <p className="font-serif text-sm mt-2">Manila, Philippines</p>
-            </div>
-            <div>
-              <div className="text-xs uppercase font-black mb-2">Working Hours</div>
-              <div className="text-2xl font-black uppercase">Flexible</div>
-              <p className="font-serif text-sm mt-2">Remote collaboration</p>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   );

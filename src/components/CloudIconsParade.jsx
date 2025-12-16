@@ -34,36 +34,7 @@ export default function CloudIconsParade() {
   return (
     <>
       {/* Desktop: Corner Cluster */}
-      <div className="hidden md:block absolute inset-0 pointer-events-none overflow-visible">
-        {icons.map((item, i) => {
-          const pos = getCornerPosition(i, icons.length);
-          return (
-            <div 
-              key={i} 
-              className="absolute flex flex-col items-center gap-2 animate-float"
-              style={{
-                left: pos.x,
-                top: pos.y,
-                transform: 'translate(-50%, -50%)',
-                animationDelay: `${item.delay}s`,
-                animationDuration: `${5 + (i % 3)}s`,
-                zIndex: 20
-              }}
-            >
-              <div className="w-16 h-16 border-4 border-black bg-white flex items-center justify-center shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] hover:scale-110 transition-all duration-300 p-2">
-                <img 
-                  src={item.path} 
-                  alt={item.name}
-                  className="w-full h-full object-contain"
-                />
-              </div>
-              <span className="text-xs font-black uppercase tracking-wider whitespace-nowrap bg-white px-2 py-1 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-                {item.name}
-              </span>
-            </div>
-          );
-        })}
-      </div>
+
 
       {/* Mobile: Scrolling Parade */}
       <div className="md:hidden absolute top-0 left-0 right-0 overflow-hidden py-8 pointer-events-none" style={{ zIndex: 20 }}>
