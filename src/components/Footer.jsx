@@ -1,23 +1,57 @@
 import React from 'react';
-import { Github, Linkedin, Twitter, Mail } from 'lucide-react';
+import { Github, Linkedin } from 'lucide-react';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+
+  const handleNavClick = (e, section) => {
+    e.preventDefault();
+    
+    // Check if we're on the homepage
+    const isHomePage = window.location.pathname === '/';
+    
+    if (isHomePage) {
+      // On homepage - just scroll to section
+      const element = document.getElementById(section);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      // On article/other page - navigate to homepage with hash
+      window.history.pushState({}, '', '/');
+      window.dispatchEvent(new PopStateEvent('popstate'));
+      
+      // Wait for navigation, then scroll
+      setTimeout(() => {
+        const element = document.getElementById(section);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        } else {
+          window.scrollTo(0, 0);
+        }
+      }, 100);
+    }
+  };
 
   return (
     <footer className="bg-black text-white border-t-4 border-black">
       <div className="max-w-6xl mx-auto px-4 py-12">
         {/* Main Footer Content */}
         <div className="grid md:grid-cols-4 gap-8 mb-12 pb-8 border-b-2 border-white">
-          {/* Masthead */}
+          {/* Masthead with Logo */}
           <div className="md:col-span-2">
-            <h3 className="text-4xl font-black uppercase tracking-tighter mb-4">
-              The Daily FK
-            </h3>
+            <div className="mb-6">
+              <img 
+                src="/francekhalil.svg" 
+                alt="France Khalil"
+                className="h-16 w-auto"
+                style={{ filter: 'brightness(0) invert(1)' }} // Makes logo white for dark background
+              />
+            </div>
             <p className="font-serif text-sm leading-relaxed mb-4 text-gray-300">
               An independent publication covering data engineering, design innovation, 
               and the intersection of technology and creativity. Published daily from 
-              San Francisco, California.
+              Manila, Philippines.
             </p>
             <div className="text-xs uppercase tracking-wider text-gray-400">
               Est. 2025 • Vol. 1
@@ -33,8 +67,9 @@ export default function Footer() {
               {['Home', 'About', 'Skills', 'Projects', 'Articles', 'Contact'].map(item => (
                 <a 
                   key={item} 
-                  href={`#${item.toLowerCase()}`} 
-                  className="block text-sm font-bold hover:underline transition-all"
+                  href={`#${item.toLowerCase()}`}
+                  onClick={(e) => handleNavClick(e, item.toLowerCase())}
+                  className="block text-sm font-bold hover:underline transition-all cursor-pointer"
                 >
                   {item}
                 </a>
@@ -65,8 +100,6 @@ export default function Footer() {
             {[
               { icon: Github, label: 'GitHub', url: 'https://github.com/FranceKR' },
               { icon: Linkedin, label: 'LinkedIn', url: 'https://www.linkedin.com/in/fkromero/' },
-             // { icon: Twitter, label: 'Twitter', url: '#contact' },
-             // { icon: Mail, label: 'Email', url: '#contact' }
             ].map((item, i) => (
               <a 
                 key={i}
@@ -84,10 +117,10 @@ export default function Footer() {
           {/* Copyright */}
           <div className="text-center md:text-right">
             <div className="text-sm font-bold mb-1">
-              © {currentYear} The Daily FK. All rights reserved.
+              © {currentYear} France Khalil. All rights reserved.
             </div>
             <div className="text-xs text-gray-400">
-              France Khalil • Data Engineer & Designer
+              Data Engineer & Designer
             </div>
           </div>
         </div>

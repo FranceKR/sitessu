@@ -9,11 +9,10 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import ArticlePage from './pages/ArticlePage';
 import AllArticlesPage from './pages/AllArticlesPage';
-import AdminPanel from './pages/AdminPanel';
 
 export default function App() {
   const [activeSection, setActiveSection] = useState('home');
-  const [currentView, setCurrentView] = useState('home'); // 'home', 'article', 'articles', or 'admin'
+  const [currentView, setCurrentView] = useState('home'); // 'home', 'article', or 'articles'
   const [currentSlug, setCurrentSlug] = useState(null);
 
   // Handle routing based on URL
@@ -26,8 +25,6 @@ export default function App() {
       setCurrentSlug(slug);
     } else if (path === '/articles') {
       setCurrentView('articles');
-    } else if (path === '/admin') {
-      setCurrentView('admin');
     } else {
       setCurrentView('home');
     }
@@ -41,8 +38,6 @@ export default function App() {
         setCurrentSlug(slug);
       } else if (newPath === '/articles') {
         setCurrentView('articles');
-      } else if (newPath === '/admin') {
-        setCurrentView('admin');
       } else {
         setCurrentView('home');
       }
@@ -73,17 +68,6 @@ export default function App() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [currentView]);
 
-  // Render admin panel
-  if (currentView === 'admin') {
-    return (
-      <div className="bg-gray-50">
-        <Navigation activeSection="admin" />
-        <AdminPanel />
-        <Footer />
-      </div>
-    );
-  }
-
   // Render all articles page
   if (currentView === 'articles') {
     return (
@@ -106,7 +90,7 @@ export default function App() {
     );
   }
 
-  // Render homepage - REORDERED: Hero -> LatestArticles -> About -> Skills -> Projects -> Contact
+  // Render homepage
   return (
     <div className="bg-gray-50">
       <Navigation activeSection={activeSection} />

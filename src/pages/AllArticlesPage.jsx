@@ -43,7 +43,10 @@ export default function AllArticlesPage() {
             <div className="text-8xl mb-6">📰</div>
             <h1 className="text-4xl font-black uppercase mb-4">Error Loading Articles</h1>
             <p className="font-serif text-lg mb-8">{error}</p>
-            <a href="/" className="inline-block border-4 border-black px-8 py-4 bg-white hover:bg-black hover:text-white transition-colors font-black uppercase">
+            <a 
+              href="/" 
+              className="inline-block border-4 border-black px-8 py-4 bg-white hover:bg-black hover:text-white transition-colors font-black uppercase"
+            >
               Back to Homepage →
             </a>
           </div>
