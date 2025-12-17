@@ -84,12 +84,16 @@ export default function ArticlePage({ slug }) {
           
           {/* Author */}
           <div className="p-6 bg-black text-white flex items-center gap-4">
-            <div className="w-12 h-12 border-2 border-white bg-gray-800 flex items-center justify-center text-2xl">
-              👨‍💻
+            <div className="w-12 h-12 border-2 border-white overflow-hidden flex-shrink-0">
+              <img 
+                src="/prans.jpg" 
+                alt={article.author || 'France Khalil'}
+                className="w-full h-full object-cover"
+              />
             </div>
             <div>
               <div className="font-black uppercase text-sm">{article.author || 'France Khalil'}</div>
-              <div className="text-xs text-gray-400">Data Engineer</div>
+              <div className="text-xs text-gray-400">Data Engineer & Designer</div>
             </div>
           </div>
         </header>
