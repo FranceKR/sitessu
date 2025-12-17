@@ -3,11 +3,8 @@ import CloudIconsParade from './CloudIconsParade';
 
 export default function About() {
   return (
-    <section id="about" className="relative py-20 px-4 bg-white border-t-4 border-black overflow-hidden">
-      {/* Floating Icons */}
-      <CloudIconsParade />
-      
-      <div className="max-w-6xl mx-auto relative z-10">
+    <section id="about" className="relative py-20 px-4 bg-white border-t-4 border-black">
+      <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
           <div className="text-xs uppercase tracking-widest font-bold mb-2">Feature</div>
           <h2 className="text-5xl md:text-6xl font-black uppercase tracking-tight">about prans</h2>
@@ -15,24 +12,30 @@ export default function About() {
         </div>
         
         <div className="grid md:grid-cols-2 gap-12 items-start">
-          {/* Left Column - Image/Visual */}
-          <div className="border-4 border-black p-8 bg-gray-100">
-            <div className="aspect-square border-2 border-black bg-white mb-4 overflow-hidden">
-              <img 
-                src="/prans.jpg" 
-                alt="France Khalil"
-                className="w-full h-full object-cover"
-              />
-            </div>
+          {/* Left Column - Image/Visual with Icons */}
+          <div className="relative">
+            {/* Floating Icons - Positioned relative to this column */}
+            <CloudIconsParade />
             
-            <div className="border-2 border-black p-4 bg-yellow-50">
-              <div className="text-xs uppercase font-bold mb-2">Quick Facts</div>
-              <ul className="space-y-1 text-sm font-serif">
-                <li>• 10M+ events processed daily</li>
-                <li>• 80% reduction in data incidents</li>
-                <li>• Real-time analytics expert</li>
-                <li>• Full-stack designer</li>
-              </ul>
+            {/* Main Content */}
+            <div className="border-4 border-black p-8 bg-gray-100 relative z-0">
+              <div className="aspect-square border-2 border-black bg-white mb-4 overflow-hidden">
+                <img 
+                  src="/prans.jpg" 
+                  alt="France Khalil"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              
+              <div className="border-2 border-black p-4 bg-yellow-50">
+                <div className="text-xs uppercase font-bold mb-2">Quick Facts</div>
+                <ul className="space-y-1 text-sm font-serif">
+                  <li>• 10M+ events processed daily</li>
+                  <li>• 80% reduction in data incidents</li>
+                  <li>• Real-time analytics expert</li>
+                  <li>• Full-stack designer</li>
+                </ul>
+              </div>
             </div>
           </div>
           
