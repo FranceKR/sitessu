@@ -40,10 +40,10 @@ export default function Navigation({ activeSection }) {
 
   return (
     <>
-      {/* Navigation Bar */}
+      {/* Navigation Bar - Now Fixed/Sticky */}
       <nav
-        className={`relative w-full z-50 transition-all duration-300 border-b-2 border-black ${
-          scrolled ? 'bg-white shadow-md' : 'bg-white/95'
+        className={`fixed top-0 left-0 right-0 w-full z-50 transition-all duration-300 border-b-2 border-black ${
+          scrolled ? 'bg-white shadow-lg' : 'bg-white/95 backdrop-blur-sm'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -89,7 +89,7 @@ export default function Navigation({ activeSection }) {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden p-2 z-10"
+              className="md:hidden p-2 z-10 hover:bg-gray-100 rounded transition-colors"
               aria-label="Toggle menu"
             >
               {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -98,9 +98,9 @@ export default function Navigation({ activeSection }) {
         </div>
       </nav>
 
-      {/* Mobile Navigation Dropdown */}
+      {/* Mobile Navigation Dropdown - Also Fixed */}
       {isOpen && (
-        <div className="md:hidden bg-white border-b-2 border-black">
+        <div className="md:hidden fixed top-16 left-0 right-0 bg-white border-b-2 border-black z-40 shadow-lg">
           <div className="flex flex-col">
             {navItems.map((item) => (
               <a

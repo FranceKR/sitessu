@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { useMailerLite } from './hooks/useMailerLite';
+import './styles/mailerlite-custom.css';
 import Navigation from './components/Navigation';
 import Hero from './components/Hero';
 import LatestArticles from './components/LatestArticles';
@@ -14,6 +16,9 @@ export default function App() {
   const [activeSection, setActiveSection] = useState('home');
   const [currentView, setCurrentView] = useState('home');
   const [currentSlug, setCurrentSlug] = useState(null);
+
+  // Initialize MailerLite
+  useMailerLite();
 
   // Handle routing based on URL
   useEffect(() => {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Github, Linkedin, Mail, Twitter } from 'lucide-react';
+import { Github, Linkedin } from 'lucide-react';
 
 // Typing Animation Component
 function TypingAnimation() {
@@ -71,23 +71,17 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Main Headline */}
-        {/* <div className="border-4 border-black p-8 mb-8 bg-yellow-50">
-          <div className="text-xs uppercase tracking-widest font-bold mb-4">
-            Breaking News
+        {/* Newsletter Subscription - Below typing animation */}
+        <div className="max-w-4xl mx-auto mb-12">
+          <div className="border-4 border-black bg-yellow-50 p-8">
+            <div className="text-center text-xs uppercase tracking-widest font-bold mb-6">
+              📰 Subscribe to My Newsletter
+            </div>
+            
+            {/* MailerLite Embedded Form */}
+            <div className="ml-embedded" data-form="h6pPj4"></div>
           </div>
-          <h2 className="text-4xl md:text-5xl font-black leading-tight mb-6 uppercase">
-            Data Engineer Revolutionizes Digital Design
-          </h2>
-          <div className="border-t-2 border-black pt-4">
-            <p className="text-xl md:text-2xl font-serif leading-relaxed mb-4">
-              <span className="float-left text-6xl font-black mr-2 leading-none">F</span>
-              rance Khalil, a visionary data engineer and creative designer, continues to push 
-              the boundaries of scalable data solutions while crafting beautiful digital experiences 
-              at the intersection of engineering and design.
-            </p>
-          </div>
-        </div> */}
+        </div>
 
         {/* Columns */}
         <div className="grid md:grid-cols-3 gap-8 mb-8">
@@ -130,8 +124,7 @@ export default function Hero() {
               {[
                 {Icon: Github, label:'GitHub', url:'https://github.com/FranceKR'},
                 {Icon: Linkedin, label:'LinkedIn', url: 'https://www.linkedin.com/in/fkromero/'}
-                ]
-                .map(({Icon, url },i) => (
+              ].map(({Icon, url }, i) => (
                 <a 
                   key={i} 
                   href={url}

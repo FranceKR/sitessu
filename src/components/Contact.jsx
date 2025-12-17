@@ -11,12 +11,9 @@ export default function Contact() {
           <div className="w-32 h-1 bg-black mx-auto mt-4"></div>
         </div>
         
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {/* Contact Info Cards */}
+        <div className="grid md:grid-cols-2 gap-8">
+          {/* Left Column - Contact Info */}
           <div className="space-y-6">
-            {/* Main Contact Box */}
-
-
             {/* Contact Details */}
             <div className="border-4 border-black bg-gray-50">
               <div className="border-b-4 border-black p-4 bg-white">
@@ -24,7 +21,7 @@ export default function Contact() {
               </div>
               <div className="p-6 space-y-4">
                 {[
-                  { icon: Mail, label: 'Email', value: 'hello@francekhalil.com' },
+                  { icon: Mail, label: 'Email', value: 'hello@francekhalil.com', link: 'mailto:hello@francekhalil.com' },
                   { icon: MapPin, label: 'Location', value: 'Manila, Philippines' }
                 ].map((item, i) => (
                   <div key={i} className="flex items-start gap-3">
@@ -33,7 +30,13 @@ export default function Contact() {
                     </div>
                     <div>
                       <div className="text-xs uppercase font-bold text-gray-600">{item.label}</div>
-                      <div className="font-bold text-sm">{item.value}</div>
+                      {item.link ? (
+                        <a href={item.link} className="font-bold text-sm hover:underline">
+                          {item.value}
+                        </a>
+                      ) : (
+                        <div className="font-bold text-sm">{item.value}</div>
+                      )}
                     </div>
                   </div>
                 ))}
@@ -46,8 +49,8 @@ export default function Contact() {
               <div className="grid grid-cols-2 gap-3">
                 {[
                   { icon: Github, label: 'GitHub', url:'https://github.com/FranceKR'},
-                  { icon: Linkedin, label: 'LinkedIn', url:'https://www.linkedin.com/in/fkromero/'}]
-                .map((item, i) => (
+                  { icon: Linkedin, label: 'LinkedIn', url:'https://www.linkedin.com/in/fkromero/'}
+                ].map((item, i) => (
                   <a 
                     key={i}
                     href={item.url}
@@ -61,50 +64,57 @@ export default function Contact() {
                 ))}
               </div>
             </div>
-          </div>
-          
 
-
-          {/* Availability Card */}
-          <div className="border-4 border-black bg-gradient-to-br from-yellow-50 to-white">
-            <div className="border-b-4 border-black p-6 bg-black text-white">
-              <h3 className="text-2xl font-black uppercase">Availability</h3>
-            </div>
-            <div className="p-8">
-              <div className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-3 h-3 rounded-full bg-green-500 border-2 border-black"></div>
-                  <span className="font-bold">Available for Projects</span>
-                </div>
-                <div className="border-t-2 border-black pt-4">
-                  <p className="font-serif text-sm leading-relaxed mb-4">
-                    Currently accepting:
-                  </p>
-                  <ul className="space-y-2 font-serif text-sm">
-                    <li className="flex items-start">
-                      <span className="mr-2">•</span>
-                      <span>Data Engineering Consulting</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="mr-2">•</span>
-                      <span>UI/UX Design Projects</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="mr-2">•</span>
-                      <span>Speaking Engagements</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="mr-2">•</span>
-                      <span>Technical Writing</span>
-                    </li>
-                  </ul>
+            {/* Availability */}
+            <div className="border-4 border-black bg-gradient-to-br from-yellow-50 to-white">
+              <div className="border-b-4 border-black p-6 bg-black text-white">
+                <h3 className="text-2xl font-black uppercase">Availability</h3>
+              </div>
+              <div className="p-8">
+                <div className="space-y-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-3 h-3 rounded-full bg-green-500 border-2 border-black animate-pulse"></div>
+                    <span className="font-bold">Available for Projects</span>
+                  </div>
+                  <div className="border-t-2 border-black pt-4">
+                    <p className="font-serif text-sm leading-relaxed mb-4">
+                      Currently accepting:
+                    </p>
+                    <ul className="space-y-2 font-serif text-sm">
+                      <li className="flex items-start">
+                        <span className="mr-2">•</span>
+                        <span>Data Engineering Consulting</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="mr-2">•</span>
+                        <span>UI/UX Design Projects</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="mr-2">•</span>
+                        <span>Speaking Engagements</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="mr-2">•</span>
+                        <span>Technical Writing</span>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
 
-        {/* Additional Info Banner */}
+          {/* Right Column - Newsletter Form */}
+          <div className="border-4 border-black bg-white">
+            <div className="border-b-4 border-black p-6 bg-black text-white">
+              <h3 className="text-2xl font-black uppercase">Subscribe to My Newsletter</h3>
+            </div>
+            <div className="p-8">
+              {/* MailerLite Embedded Form */}
+              <div className="ml-embedded" data-form="h6pPj4"></div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );
