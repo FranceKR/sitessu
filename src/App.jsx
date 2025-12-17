@@ -9,11 +9,14 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import ArticlePage from './pages/ArticlePage';
 import AllArticlesPage from './pages/AllArticlesPage';
+import SplashScreen from './components/SplashScreen';
 
 export default function App() {
   const [activeSection, setActiveSection] = useState('home');
   const [currentView, setCurrentView] = useState('home'); // 'home', 'article', or 'articles'
   const [currentSlug, setCurrentSlug] = useState(null);
+  const [showSplash, setShowSplash] = useState(true);
+  const [animate, setAnimate] = useState(false);
 
   // Handle routing based on URL
   useEffect(() => {
@@ -68,39 +71,60 @@ export default function App() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [currentView]);
 
+  const handleSplashComplete = () => {
+    setShowSplash(false);
+    // Trigger slide-up animation immediately after splash
+    setTimeout(() => setAnimate(true), 50);
+  };
+
   // Render all articles page
   if (currentView === 'articles') {
     return (
-      <div className="bg-gray-50">
-        <Navigation activeSection="articles" />
-        <AllArticlesPage />
-        <Footer />
-      </div>
+      <>
+        {showSplash && <SplashScreen onComplete={handleSplashComplete} />}
+        <div className={`bg-gray-50 transition-all duration-700 ease-out ${
+          animate ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+        }`}>
+          <Navigation activeSection="articles" />
+          <AllArticlesPage />
+          <Footer />
+        </div>
+      </>
     );
   }
 
   // Render single article page
   if (currentView === 'article') {
     return (
-      <div className="bg-gray-50">
-        <Navigation activeSection="articles" />
-        <ArticlePage slug={currentSlug} />
-        <Footer />
-      </div>
+      <>
+        {showSplash && <SplashScreen onComplete={handleSplashComplete} />}
+        <div className={`bg-gray-50 transition-all duration-700 ease-out ${
+          animate ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+        }`}>
+          <Navigation activeSection="articles" />
+          <ArticlePage slug={currentSlug} />
+          <Footer />
+        </div>
+      </>
     );
   }
 
   // Render homepage
   return (
-    <div className="bg-gray-50">
-      <Navigation activeSection={activeSection} />
-      <Hero />
-      <LatestArticles />
-      <About />
-      <Skills />
-      <Projects />
-      <Contact />
-      <Footer />
-    </div>
+    <>
+      {showSplash && <SplashScreen onComplete={handleSplashComplete} />}
+      <div className={`bg-gray-50 transition-all duration-700 ease-out ${
+        animate ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+      }`}>
+        <Navigation activeSection={activeSection} />
+        <Hero />
+        <LatestArticles />
+        <About />
+        <Skills />
+        <Projects />
+        <Contact />
+        <Footer />
+      </div>
+    </>
   );
 }
