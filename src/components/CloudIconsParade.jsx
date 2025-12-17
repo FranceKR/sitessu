@@ -20,11 +20,7 @@ export default function CloudIconsParade() {
       { x: 20, y: 50 },  // Lower right
       { x: 48, y: 75 },  // Far corner
       { x: 40, y: 85 },  // Bottom cluster
-      { x: 85, y: 10 },  // Top cluster
-      { x: 95, y: 30 },  // Edge
-      { x: 80, y: 15 },  // Upper mid
-      { x: 70, y: 20 },  // Left cluster
-      { x: 90, y: 35 },  // Bottom right
+
     ];
     
     const pos = positions[index % positions.length];
