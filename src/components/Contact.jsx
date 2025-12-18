@@ -103,17 +103,6 @@ export default function Contact() {
               </div>
             </div>
           </div>
-
-          {/* Right Column - Newsletter Form */}
-          <div className="border-4 border-black bg-white">
-            <div className="border-b-4 border-black p-6 bg-black text-white">
-              <h3 className="text-2xl font-black uppercase">Subscribe to My Newsletter</h3>
-            </div>
-            <div className="p-8">
-              {/* MailerLite Embedded Form */}
-              <div className="ml-embedded" data-form="h6pPj4"></div>
-            </div>
-          </div>
         </div>
       </div>
     </section>

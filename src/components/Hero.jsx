@@ -72,10 +72,10 @@ export default function Hero() {
         </div>
 
         {/* Newsletter Subscription - Below typing animation */}
-        <div className="max-w-4xl mx-auto mb-12">
-          <div className="border-4 border-black bg-yellow-50 p-8">
+        <div className="max-w-xl mx-auto mb-12">
+          <div className=" ">
             <div className="text-center text-xs uppercase tracking-widest font-bold mb-6">
-              📰 Subscribe to My Newsletter
+              Subscribe to My Newsletter
             </div>
             
             {/* MailerLite Embedded Form */}

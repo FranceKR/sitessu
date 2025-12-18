@@ -116,10 +116,6 @@
 }
 
 /* Placeholder styling */
-.ml-embedded input::placeholder {
-  color: #999 !important;
-  font-weight: 600 !important;
-}
 
 /* Responsive adjustments */
 @media (max-width: 640px) {
