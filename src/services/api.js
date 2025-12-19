@@ -1,107 +1,144 @@
-import articlesData from '../data/articles.json';
+/**
+ * Secure API Service
+ * Handles all API requests with proper error handling and validation
+ */
+
+const API_BASE = import.meta.env.VITE_API_BASE_URL || '/api';
+const MAX_RETRIES = 3;
+const RETRY_DELAY = 1000;
 
 /**
- * Simulate API delay for realistic UX
- * @param {number} ms - Milliseconds to wait
+ * Delay helper for retries
  */
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 /**
+ * Safe fetch wrapper with timeout and retries
+ */
+async function safeFetch(url, options = {}, retries = MAX_RETRIES) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 10000); // 10s timeout
+
+  try {
+    const response = await fetch(url, {
+      ...options,
+      signal: controller.signal,
+      headers: {
+        'Content-Type': 'application/json',
+        ...options.headers,
+      },
+    });
+
+    clearTimeout(timeout);
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.error || `HTTP ${response.status}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    clearTimeout(timeout);
+
+    // Retry on network errors
+    if (retries > 0 && error.name !== 'AbortError') {
+      await delay(RETRY_DELAY);
+      return safeFetch(url, options, retries - 1);
+    }
+
+    throw error;
+  }
+}
+
+/**
+ * Input validation helper
+ */
+function validateInput(value, type) {
+  switch (type) {
+    case 'slug':
+      return /^[a-z0-9-]+$/.test(value);
+    case 'number':
+      return !isNaN(value) && value > 0 && value <= 100;
+    default:
+      return true;
+  }
+}
+
+/**
  * Fetch latest published articles
- * @param {number} limit - Number of articles to fetch
- * @returns {Promise<Object>} - Object with articles array
+ * @param {number} limit - Number of articles (max 100)
  */
 export const fetchLatestArticles = async (limit = 3) => {
   try {
-    await delay(300); // Simulate network delay
-    
-    const articles = articlesData.articles
-      .filter(a => a.published)
-      .sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt))
-      .slice(0, limit)
-      .map(({ content, ...rest }) => rest); // Exclude content for performance
-    
-    return { articles };
+    // Validate input
+    if (!validateInput(limit, 'number')) {
+      throw new Error('Invalid limit parameter');
+    }
+
+    const data = await safeFetch(`${API_BASE}/articles/latest?limit=${limit}`);
+    return data;
   } catch (error) {
     console.error('Error fetching latest articles:', error);
-    throw new Error('Failed to fetch articles');
+    throw new Error('Failed to fetch articles. Please try again later.');
   }
 };
 
 /**
  * Fetch all published articles
- * @returns {Promise<Object>} - Object with articles array
  */
 export const fetchAllArticles = async () => {
   try {
-    await delay(300);
-    
-    const articles = articlesData.articles
-      .filter(a => a.published)
-      .sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt))
-      .map(({ content, ...rest }) => rest);
-    
-    return { articles };
+    const data = await safeFetch(`${API_BASE}/articles`);
+    return data;
   } catch (error) {
     console.error('Error fetching all articles:', error);
-    throw new Error('Failed to fetch articles');
+    throw new Error('Failed to fetch articles. Please try again later.');
   }
 };
 
 /**
  * Fetch single article by slug
  * @param {string} slug - Article slug
- * @returns {Promise<Object>} - Object with article
  */
 export const fetchArticleBySlug = async (slug) => {
   try {
-    await delay(300);
-    
-    const article = articlesData.articles.find(
-      a => a.slug === slug && a.published
-    );
-    
-    if (!article) {
-      throw new Error('Article not found');
+    // Validate slug format (prevent injection)
+    if (!validateInput(slug, 'slug')) {
+      throw new Error('Invalid article slug');
     }
-    
-    return { article };
+
+    const data = await safeFetch(`${API_BASE}/articles/${encodeURIComponent(slug)}`);
+    return data;
   } catch (error) {
     console.error(`Error fetching article ${slug}:`, error);
-    throw error;
+    throw new Error('Article not found or failed to load.');
   }
 };
 
 /**
- * Save new article (for admin panel)
- * Note: This updates the in-memory data only. 
- * For persistence, you'll need to manually update articles.json
+ * Save new article (admin only - requires authentication in production)
  * @param {Object} article - Article object
- * @returns {Promise<Object>} - Created article
  */
 export const saveArticle = async (article) => {
   try {
-    await delay(500);
-    
-    // Generate ID
-    const maxId = Math.max(...articlesData.articles.map(a => parseInt(a.id)), 0);
-    const newArticle = {
-      ...article,
-      id: String(maxId + 1),
-      publishedAt: article.publishedAt || new Date().toISOString()
-    };
-    
-    // Add to in-memory data
-    articlesData.articles.unshift(newArticle);
-    
-    // Log the new article for manual copying
-    console.log('📝 New Article Created! Copy this to articles.json:');
-    console.log(JSON.stringify(newArticle, null, 2));
-    
-    return { article: newArticle };
+    // Validate required fields
+    if (!article.title || !article.content || !article.slug) {
+      throw new Error('Missing required fields');
+    }
+
+    // Validate slug format
+    if (!validateInput(article.slug, 'slug')) {
+      throw new Error('Invalid slug format. Use only lowercase letters, numbers, and hyphens.');
+    }
+
+    const data = await safeFetch(`${API_BASE}/articles`, {
+      method: 'POST',
+      body: JSON.stringify(article),
+    });
+
+    return data;
   } catch (error) {
     console.error('Error saving article:', error);
-    throw new Error('Failed to save article');
+    throw new Error('Failed to save article. Please try again.');
   }
 };
-

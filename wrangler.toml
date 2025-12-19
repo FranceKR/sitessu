@@ -4,7 +4,17 @@ compatibility_date = "2024-12-19"
 # Pages configuration
 pages_build_output_dir = "dist"
 
+# D1 Database binding
 [[d1_databases]]
 binding = "DB"
 database_name = "francekhalil-db"
 database_id = "815e23e6-e4fd-4e78-83fe-2df3677d1da7"
+
+# Local development D1 configuration
+[dev]
+# Use local SQLite database for development
+local_protocol = "http"
+
+# Environment variables (add these to your .env.local)
+[vars]
+ENVIRONMENT = "development"
