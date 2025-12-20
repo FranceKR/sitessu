@@ -31,8 +31,19 @@ async function safeFetch(url, options = {}, retries = MAX_RETRIES) {
 
     clearTimeout(timeout);
 
+    // Check if response is HTML (error page) instead of JSON
+    const contentType = response.headers.get('content-type');
+    if (contentType && contentType.includes('text/html')) {
+      throw new Error('API endpoint returned HTML instead of JSON. Is the server running?');
+    }
+
     if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
+      let errorData;
+      try {
+        errorData = await response.json();
+      } catch {
+        errorData = { error: `HTTP ${response.status}` };
+      }
       throw new Error(errorData.error || `HTTP ${response.status}`);
     }
 
@@ -40,8 +51,8 @@ async function safeFetch(url, options = {}, retries = MAX_RETRIES) {
   } catch (error) {
     clearTimeout(timeout);
 
-    // Retry on network errors
-    if (retries > 0 && error.name !== 'AbortError') {
+    // Retry on network errors (but not on HTML responses)
+    if (retries > 0 && error.name !== 'AbortError' && !error.message.includes('HTML')) {
       await delay(RETRY_DELAY);
       return safeFetch(url, options, retries - 1);
     }
@@ -79,6 +90,12 @@ export const fetchLatestArticles = async (limit = 3) => {
     return data;
   } catch (error) {
     console.error('Error fetching latest articles:', error);
+    
+    // Provide more helpful error message
+    if (error.message.includes('HTML')) {
+      throw new Error('API server not running. Please start Wrangler with: npm run dev:wrangler');
+    }
+    
     throw new Error('Failed to fetch articles. Please try again later.');
   }
 };
@@ -92,6 +109,11 @@ export const fetchAllArticles = async () => {
     return data;
   } catch (error) {
     console.error('Error fetching all articles:', error);
+    
+    if (error.message.includes('HTML')) {
+      throw new Error('API server not running. Please start Wrangler with: npm run dev:wrangler');
+    }
+    
     throw new Error('Failed to fetch articles. Please try again later.');
   }
 };
@@ -111,6 +133,11 @@ export const fetchArticleBySlug = async (slug) => {
     return data;
   } catch (error) {
     console.error(`Error fetching article ${slug}:`, error);
+    
+    if (error.message.includes('HTML')) {
+      throw new Error('API server not running. Please start Wrangler with: npm run dev:wrangler');
+    }
+    
     throw new Error('Article not found or failed to load.');
   }
 };

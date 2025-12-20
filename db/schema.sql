@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS articles (
   updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE INDEX idx_slug ON articles(slug);
-CREATE INDEX idx_published ON articles(published);
-CREATE INDEX idx_published_at ON articles(published_at);
-CREATE INDEX idx_category ON articles(category);
+CREATE INDEX IF NOT EXISTS idx_slug ON articles(slug);
+CREATE INDEX IF NOT EXISTS idx_published ON articles(published);
+CREATE INDEX IF NOT EXISTS idx_published_at ON articles(published_at);
+CREATE INDEX IF NOT EXISTS idx_category ON articles(category);

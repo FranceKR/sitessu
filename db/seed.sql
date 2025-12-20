@@ -3,7 +3,10 @@
 -- Description: Inserts initial articles from articles.json
 
 -- Insert articles
-INSERT INTO articles (slug, title, excerpt, content, thumbnail, category, author, published_at, read_time, published) VALUES
+INSERT OR IGNORE INTO articles (
+  slug, title, excerpt, content, thumbnail, category,
+  author, published_at, read_time, published
+) VALUES
 (
   'building-scalable-pipelines',
   'Building Scalable Data Pipelines',
@@ -51,7 +54,18 @@ INSERT INTO articles (slug, title, excerpt, content, thumbnail, category, author
   '2024-12-02T10:00:00Z',
   '7 min',
   1
-);
+)
+ON CONFLICT(slug) DO UPDATE SET
+  title        = excluded.title,
+  excerpt      = excluded.excerpt,
+  content      = excluded.content,
+  thumbnail    = excluded.thumbnail,
+  category     = excluded.category,
+  author       = excluded.author,
+  published_at = excluded.published_at,
+  read_time    = excluded.read_time,
+  published    = excluded.published;
+
 
 -- Verify insertion
 SELECT COUNT(*) as total_articles FROM articles;
