@@ -73,3 +73,6 @@ tmp/
 temp/
 *.tmp
 *.temp
+temp_*.sql
+temp_sync.sql
+temp_remote_export.sql

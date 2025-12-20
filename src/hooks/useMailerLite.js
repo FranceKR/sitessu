@@ -8,7 +8,6 @@ export const useMailerLite = () => {
   useEffect(() => {
     // Check if script already exists
     if (window.ml) {
-      console.log('✓ MailerLite already loaded');
       return;
     }
 
@@ -33,13 +32,6 @@ export const useMailerLite = () => {
     // Initialize MailerLite with your account ID
     if (window.ml) {
       window.ml('account', '1985294');
-      console.log('✓ MailerLite initialized');
     }
-
-    // Cleanup function
-    return () => {
-      // Note: MailerLite script typically stays loaded
-      console.log('MailerLite cleanup (script remains for performance)');
-    };
   }, []);
 };

@@ -5,8 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "dev:wrangler": "wrangler pages dev dist --local --d1=DB --port=8788 --live-reload",
-    "dev:all": "concurrently \"npm run dev\" \"npm run dev:wrangler\"",
+    "dev:wrangler": "npm run db:init && npm run db:seed && wrangler pages dev dist --local --port=8788 --live-reload",
+    "dev:wait": "node scripts/wait-for-port.js 8788",
+    "dev:all": "concurrently --kill-others-on-fail --kill-others \"npm run dev:wrangler\" \"npm run dev:wait && npm run dev\"",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
@@ -15,7 +16,12 @@
     "db:verify": "wrangler d1 execute francekhalil-db --local --command \"SELECT * FROM articles LIMIT 3\"",
     "db:migrate": "wrangler d1 migrations apply francekhalil-db --local",
     "db:remote:init": "wrangler d1 execute francekhalil-db --remote --file=./db/schema.sql",
-    "db:remote:seed": "wrangler d1 execute francekhalil-db --remote --file=./db/seed.sql"
+    "db:remote:seed": "wrangler d1 execute francekhalil-db --remote --file=./db/seed.sql",
+    "db:sync": "node scripts/sync-db.js",
+    "db:remote:verify": "wrangler d1 execute francekhalil-db --remote --command \"SELECT COUNT(*) as count FROM articles\"",
+    "db:setup": "npm run db:init && npm run db:sync",
+    "db:ready": "npm run db:init && npm run db:seed",
+    "dev:setup": "npm run db:setup && npm run dev:all"
   },
   "dependencies": {
     "dompurify": "^3.3.1",

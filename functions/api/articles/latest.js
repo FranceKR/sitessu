@@ -56,14 +56,11 @@ export async function onRequestGet(context) {
     if (limit < 1) limit = 3;
     if (limit > 100) limit = 100;
 
-    console.log(`Fetching ${limit} articles from D1...`);
-
-    // Query D1 database with parameterized query
+    // Query D1 database
+    // Using validated integer for LIMIT (safe since limit is validated to be 1-100)
     const { results } = await env.DB.prepare(
-      'SELECT id, slug, title, excerpt, thumbnail, category, author, published_at, read_time FROM articles WHERE published = 1 ORDER BY published_at DESC LIMIT ?'
-    ).bind(limit).all();
-
-    console.log(`Found ${results?.length || 0} articles`);
+      `SELECT id, slug, title, excerpt, thumbnail, category, author, published_at, read_time FROM articles WHERE published = 1 ORDER BY published_at DESC LIMIT ${limit}`
+    ).all();
 
     // Format response
     const articles = (results || []).map(article => ({
@@ -85,14 +82,26 @@ export async function onRequestGet(context) {
 
   } catch (error) {
     console.error('Database error:', error);
+    console.error('Error name:', error.name);
+    console.error('Error message:', error.message);
     console.error('Error stack:', error.stack);
+    console.error('Error details:', JSON.stringify(error, Object.getOwnPropertyNames(error)));
+    
+    // Return more detailed error in development
+    const errorDetails = {
+      error: 'Internal server error',
+      message: error.message,
+      hint: 'Check if database is initialized with: npm run db:init && npm run db:seed'
+    };
+    
+    // Add more details in development mode
+    if (env.ENVIRONMENT === 'development') {
+      errorDetails.stack = error.stack;
+      errorDetails.name = error.name;
+    }
     
     return new Response(
-      JSON.stringify({ 
-        error: 'Internal server error',
-        details: error.message,
-        hint: 'Check if database is initialized with: npm run db:init && npm run db:seed'
-      }),
+      JSON.stringify(errorDetails),
       { status: 500, headers }
     );
   }
