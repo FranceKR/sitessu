@@ -50,8 +50,7 @@ export default function Footer() {
             </div>
             <p className="font-serif text-sm leading-relaxed mb-4 text-gray-300">
               An independent publication covering data engineering, design innovation, 
-              and the intersection of technology and creativity. Published daily from 
-              Manila, Philippines.
+              and the intersection of technology and creativity.
             </p>
             <div className="text-xs uppercase tracking-wider text-gray-400">
               Est. 2025 • Vol. 1
@@ -120,7 +119,7 @@ export default function Footer() {
               © {currentYear} France Khalil. All rights reserved.
             </div>
             <div className="text-xs text-gray-400">
-              Data Engineer & Designer
+              Data Engineer
             </div>
           </div>
         </div>
@@ -128,7 +127,7 @@ export default function Footer() {
         {/* Bottom Banner */}
         <div className="mt-8 pt-8 border-t-2 border-white text-center">
           <div className="text-xs uppercase tracking-widest font-bold text-gray-400">
-            "Where Engineering Meets Artistry"
+            gloria in excelsis Deo!
           </div>
         </div>
       </div>

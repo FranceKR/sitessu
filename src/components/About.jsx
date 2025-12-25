@@ -28,12 +28,12 @@ export default function About() {
               </div>
               
               <div className="border-2 border-black p-4 bg-yellow-50">
-                <div className="text-xs uppercase font-bold mb-2">Quick Facts</div>
+                <div className="text-xs uppercase font-bold mb-2">France Khalil</div>
                 <ul className="space-y-1 text-sm font-serif">
-                  <li>• 10M+ events processed daily</li>
-                  <li>• 80% reduction in data incidents</li>
-                  <li>• Real-time analytics expert</li>
-                  <li>• Full-stack designer</li>
+                  <li>• expert google searcher</li>
+                  <li>• newbie choir member (bass)</li>
+                  <li>• bug developer</li>
+                  <li>• loves orange cats</li>
                 </ul>
               </div>
             </div>

@@ -90,9 +90,7 @@ export default function Hero() {
               Latest Projects
             </h3>
             <p className="font-serif text-sm leading-relaxed">
-              Revolutionary data pipelines processing millions of events daily. 
-              Real-time analytics platforms with stunning visualizations. 
-              Automated quality frameworks reducing incidents by 80%.
+              Working on cloud-native projects that leverage Google Cloud Platform (GCP), Model Context Protocols (MCPs), and AWS services like SQS and SES to explore event-driven and distributed system architectures.
             </p>
             <a href="#projects" className="inline-block mt-4 text-xs uppercase font-bold border-2 border-black px-4 py-2 hover:bg-black hover:text-white transition-colors">
               Read More →
